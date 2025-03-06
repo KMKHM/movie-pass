@@ -1,0 +1,39 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: movie-db
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "3307:3306"
+    networks:
+      - movie
+    volumes:
+      - mysql-data:/var/lib/mysql
+  app:
+    build: .
+    container_name: spring-app
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: movie-db
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+    ports:
+      - "8080:8080"
+    networks:
+      - movie
+
+networks:
+  movie:
+    driver: bridge
+
+volumes:
+  mysql-data:
