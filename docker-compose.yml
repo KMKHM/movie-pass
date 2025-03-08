@@ -21,6 +21,7 @@ services:
     depends_on:
       - mysql
     environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
       DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: movie-db
