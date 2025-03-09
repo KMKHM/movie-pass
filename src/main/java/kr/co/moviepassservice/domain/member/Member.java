@@ -1,4 +1,4 @@
-package kr.co.moviepassservice.domain;
+package kr.co.moviepassservice.domain.member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
