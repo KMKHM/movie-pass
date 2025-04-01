@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
 @Entity
 public class Member {
 
@@ -16,7 +17,7 @@ public class Member {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String userId;
 
     @Column(nullable = false)
     private String password;
@@ -24,13 +25,15 @@ public class Member {
     @Column(nullable = false)
     private String phoneNumber;
 
-    private String name;
+    @Column(nullable = false)
+    private String username;
 
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private String point;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-
 }
