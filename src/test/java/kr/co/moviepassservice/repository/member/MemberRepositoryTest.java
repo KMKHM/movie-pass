@@ -2,17 +2,12 @@ package kr.co.moviepassservice.repository.member;
 
 import kr.co.moviepassservice.domain.member.Gender;
 import kr.co.moviepassservice.domain.member.Member;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,18 +18,12 @@ class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
-    
-    @BeforeEach
-    void setUp() {
-        // 테스트 전에 모든 회원 삭제
-        memberRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("findByUserId: 존재하는 userId로 조회 시 회원을 반환한다")
     void findByUserId_WithExistingId_ShouldReturnMember() {
         // Given
-        String userId = "testuser";
+        String userId = "testUser";
         Member member = createMember(userId, "test@example.com");
         memberRepository.save(member);
 
@@ -50,7 +39,7 @@ class MemberRepositoryTest {
     @DisplayName("findByUserId: 존재하지 않는 userId로 조회 시 빈 Optional을 반환한다")
     void findByUserId_WithNonExistingId_ShouldReturnEmptyOptional() {
         // Given
-        String userId = "nonexistent";
+        String userId = "notExistentUser";
 
         // When
         Optional<Member> foundMember = memberRepository.findByUserId(userId);
@@ -64,7 +53,7 @@ class MemberRepositoryTest {
     void findByEmail_WithExistingEmail_ShouldReturnMember() {
         // Given
         String email = "test@example.com";
-        Member member = createMember("testuser", email);
+        Member member = createMember("testUser", email);
         memberRepository.save(member);
 
         // When
@@ -92,7 +81,7 @@ class MemberRepositoryTest {
     @DisplayName("save: 새로운 회원을 저장하면 ID가 생성된다")
     void save_NewMember_ShouldGenerateId() {
         // Given
-        Member member = createMember("newuser", "new@example.com");
+        Member member = createMember("newUser", "new@example.com");
 
         // When
         Member savedMember = memberRepository.save(member);
