@@ -6,11 +6,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -164,16 +166,10 @@ class MemberRepositoryTest {
         Member secondMember = createMember("user2", duplicateEmail);
         
         // When & Then
-        try {
-            memberRepository.save(secondMember);
-            memberRepository.flush(); // 즉시 DB에 반영하여 제약 조건 위반 확인
-            
-            // 여기까지 도달하면 테스트 실패
-            assertThat(false).isTrue(); // 의도적인 실패
-        } catch (Exception e) {
-            // 제약 조건 위반 예외가 발생해야 함
-            assertThat(e).isNotNull();
-        }
+        assertThatThrownBy(() -> {
+           memberRepository.save(secondMember);
+           memberRepository.flush();
+        }).isInstanceOf(DataIntegrityViolationException.class);
     }
     
     /**
