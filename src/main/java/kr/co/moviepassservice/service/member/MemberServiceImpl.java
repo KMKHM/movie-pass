@@ -7,6 +7,7 @@ import kr.co.moviepassservice.exception.BusinessException;
 import kr.co.moviepassservice.exception.ErrorCode;
 import kr.co.moviepassservice.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
     
     @Override
     @Transactional

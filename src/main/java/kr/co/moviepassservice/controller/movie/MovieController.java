@@ -58,7 +58,6 @@ public class MovieController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
-//        movie.setId(id); // 요청 경로의 ID를 설정
         movieService.updateMovie(movie);
         return ResponseEntity.noContent().build();
     }
