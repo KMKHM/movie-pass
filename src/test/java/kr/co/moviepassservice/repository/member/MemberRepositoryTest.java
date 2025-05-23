@@ -171,10 +171,7 @@ class MemberRepositoryTest {
            memberRepository.flush();
         }).isInstanceOf(DataIntegrityViolationException.class);
     }
-    
-    /**
-     * 테스트용 회원 엔티티 생성
-     */
+
     private Member createMember(String userId, String email) {
         return Member.builder()
                 .userId(userId)
